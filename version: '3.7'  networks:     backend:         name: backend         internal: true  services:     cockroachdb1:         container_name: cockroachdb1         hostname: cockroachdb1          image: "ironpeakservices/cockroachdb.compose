@@ -1,0 +1,40 @@
+version: '3.7'
+
+networks:
+    backend:
+        name: backend
+        internal: true
+
+services:
+    cockroachdb1:
+        container_name: cockroachdb1
+        hostname: cockroachdb1
+
+        image: "ironpeakservices/iron-cockroachdb"
+
+        tty: false
+
+        restart: "on-failure:5"
+
+        # note: this will prevent autoupdate from working, and why we disable it
+        # since updates do not provide a static build for a scratch image.
+        read_only: true
+
+        security_opt:
+            - "no-new-privileges"
+
+        # only on compose version 2.x
+        #pids_limit: 1
+
+        cap_drop:
+            - ALL
+
+        networks:
+            - backend
+
+        deploy:
+            resources:
+                limits:
+                    memory: 4GB
+
+        command: ["start", "--join=cockroachdb1"]
