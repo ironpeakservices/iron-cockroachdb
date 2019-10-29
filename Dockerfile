@@ -1,4 +1,20 @@
+FROM cockroachdb/cockroach:v19.1.5 AS cdb
+
+# make a pipe fail on the first failure
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+RUN /cockroach/cockroach version | grep 'Tag' | cut -d 'v' -f 2 > /cockroach.version
+
+#
+# ---
+#
+
 FROM alpine:3.10.1 AS builder
+
+# make a pipe fail on the first failure
+SHELL ["/bin/sh", "-o", "pipefail", "-c"]
+
+COPY --from=cdb /cockroach.version /
 
 # add unprivileged user
 RUN adduser -s /bin/true -u 1000 -D -h /app app \
@@ -10,11 +26,13 @@ RUN mkdir -p /tmp/c/cockroach/cockroach-data \
     && chmod -R 700 /tmp/c/
 
 # download the cockroachdb binary
-ENV COCKROACH_VERSION="v1.1.6"
-RUN wget --quiet "https://binaries.cockroachdb.com/cockroach-${COCKROACH_VERSION}.linux-musl-amd64.tgz" -O /tmp/cockroach.tgz && \
-    tar xvzf /tmp/cockroach.tgz --strip 1
+RUN export COCKROACH_VERSION && COCKROACH_VERSION="v$(cat /cockroach.version)" \
+    && wget --quiet "https://binaries.cockroachdb.com/cockroach-${COCKROACH_VERSION}.linux-musl-amd64.tgz" -O /tmp/cockroach.tgz \
+    && tar xvzf /tmp/cockroach.tgz --strip 1
 
+#
 # ---
+#
 
 # Setup our scratch container
 FROM scratch
