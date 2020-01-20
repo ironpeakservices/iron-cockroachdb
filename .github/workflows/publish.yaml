@@ -21,3 +21,12 @@ jobs:
         name: "ironpeakservices/iron-cockroachdb/iron-cockroachdb:${{ steps.vars.outputs.cdb_version }}"
         username: hazcod
         password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Create GitHub release
+      uses: actions/create-release@v1
+      with:
+          tag_name: ${{ steps.vars.outputs.cdb_version }}
+          release_name: iron-cockroachdb
+          draft: false
+          prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
