@@ -9,7 +9,7 @@ RUN /cockroach/cockroach version | grep 'Tag' | cut -d 'v' -f 2 > /cockroach.ver
 # ---
 #
 
-FROM alpine:3.11.5 AS builder
+FROM alpine:3.11.6 AS builder
 
 # make a pipe fail on the first failure
 SHELL ["/bin/sh", "-o", "pipefail", "-c"]
