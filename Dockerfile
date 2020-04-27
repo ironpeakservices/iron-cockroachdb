@@ -63,5 +63,9 @@ EXPOSE 26257 8080
 # persistent storage
 VOLUME /cockroach/cockroach-data
 
+# healthcheck for db
+# TODO: overwrite when not doing --insecure
+HEALTHCHECK --interval=10s --timeout=10s --start-period=5s --retries=3 CMD [ "/cockroach/cockroach", "sql", "--insecure", "-e", "SELECT 1" ]
+
 # run the app
 ENTRYPOINT ["/cockroach/cockroach"]
