@@ -42,6 +42,9 @@ ENV COCKROACH_CHANNEL=official-docker
 # add-in our unprivileged user
 COPY --from=builder /etc/passwd /etc/group /etc/shadow /etc/
 
+# add-in timezone data
+COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
+
 # add-in our directory with correct permissions
 COPY --from=builder --chown=app /tmp/c/ /
 
