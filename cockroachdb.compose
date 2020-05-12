@@ -37,4 +37,4 @@ services:
                 limits:
                     memory: 4GB
 
-        command: ["start", "--join=cockroachdb1"]
+        command: ["start-single-node", "--join=cockroachdb1"]
