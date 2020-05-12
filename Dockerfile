@@ -24,6 +24,9 @@ RUN adduser -s /bin/true -u 1000 -D -h /app app \
 # create directory to copy over later
 RUN mkdir -p /tmp/c/cockroach/cockroach-data \
     && chmod -R 700 /tmp/c/
+    
+# install timezone data
+RUN apk add --no-cache tzdata
 
 # download the cockroachdb binary
 RUN export COCKROACH_VERSION && COCKROACH_VERSION="v$(cat /cockroach.version)" \
