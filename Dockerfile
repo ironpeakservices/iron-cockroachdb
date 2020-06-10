@@ -26,6 +26,7 @@ RUN mkdir -p /tmp/c/cockroach/cockroach-data \
     && chmod -R 700 /tmp/c/
     
 # install timezone data
+# hadolint ignore=DL3018
 RUN apk add --no-cache tzdata
 
 # download the cockroachdb binary
