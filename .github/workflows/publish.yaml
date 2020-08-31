@@ -15,7 +15,7 @@ jobs:
       run: echo ::set-output name=cdb_version::$(grep '^FROM cockroachdb' Dockerfile  | cut -d ' ' -f 2 | cut -d ':' -f 2 | cut -d 'v' -f 2)
     - run: echo "Pushing version ${{ steps.vars.outputs.cdb_version }}"
     - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@2.19
+      uses: elgohr/Publish-Docker-Github-Action@2.20
       with:
         registry: docker.pkg.github.com
         name: "ironpeakservices/iron-cockroachdb/iron-cockroachdb:${{ steps.vars.outputs.cdb_version }}"
