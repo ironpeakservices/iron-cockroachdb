@@ -1,7 +1,7 @@
 # iron-cockroachdb
 Secure base image for running CockroachDB databases, which are PostgreSQL-compliant.
 
-`docker pull docker.pkg.github.com/ironpeakservices/iron-cockroachdb/iron-cockroachdb:19.1.5`
+`docker pull ghcr.io/ironpeakservices/iron-cockroachdb:1.0.0`
 
 ## How is this different?
 We build from the official cockroachdb releases, but additionally:
