@@ -1,4 +1,4 @@
-FROM cockroachdb/cockroach:v20.2.6 AS cdb
+FROM cockroachdb/cockroach:v20.2.9 AS cdb
 
 # make a pipe fail on the first failure
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
